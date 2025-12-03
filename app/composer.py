@@ -1,7 +1,7 @@
 # app/composer.py
 from .parser import load_and_validate
-from .notes import generate_notes
-from .rephrase import simple_rephrase
+from utils.notes import generate_notes
+from utils.rephrase import simple_rephrase
 from .intent import classify_intent
 from . import strings
 

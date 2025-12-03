@@ -1,0 +1,30 @@
+{
+  "input": "What are the key features we discussed about the authentication system?",
+  "current": {
+    "role": "user",
+    "query": "What are the key features we discussed about the authentication system?",
+    "timestamp": "2025-12-03T14:30:00"
+  },
+  "history": [
+    {
+      "role": "user",
+      "query": "How can we implement OAuth2 authentication?",
+      "timestamp": "2025-12-03T14:20:00"
+    },
+    {
+      "role": "assistant",
+      "query": "OAuth2 can be implemented using FastAPI's OAuth2PasswordBearer scheme with JWT tokens.",
+      "timestamp": "2025-12-03T14:21:00"
+    },
+    {
+      "role": "user",
+      "query": "What about role-based access control?",
+      "timestamp": "2025-12-03T14:25:00"
+    },
+    {
+      "role": "assistant",
+      "query": "You can implement RBAC using dependency injection with user roles checked in route handlers.",
+      "timestamp": "2025-12-03T14:26:00"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "input": "Create a new user registration endpoint",
+  "current": {
+    "role": "user",
+    "query": "Create a new user registration endpoint",
+    "timestamp": "2025-12-03T15:00:00"
+  },
+  "history": [
+    {
+      "role": "user",
+      "query": "We need a user management system",
+      "timestamp": "2025-12-03T14:50:00"
+    },
+    {
+      "role": "assistant",
+      "query": "I can help you build a user management system with CRUD operations.",
+      "timestamp": "2025-12-03T14:51:00"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "input": "remember that our deployment environment is AWS",
+  "current": {
+    "role": "user",
+    "query": "remember that our deployment environment is AWS",
+    "timestamp": "2025-12-03T16:00:00"
+  },
+  "history": [
+    {
+      "role": "user",
+      "query": "What cloud providers do you support?",
+      "timestamp": "2025-12-03T15:55:00"
+    },
+    {
+      "role": "assistant",
+      "query": "I can help with AWS, Azure, and Google Cloud deployments.",
+      "timestamp": "2025-12-03T15:56:00"
+    }
+  ]
+}
