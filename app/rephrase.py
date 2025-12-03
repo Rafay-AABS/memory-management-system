@@ -1,5 +1,6 @@
 # app/rephrase.py
 import re
+from . import strings
 
 def simple_rephrase(query: str) -> str:
     query = re.sub(r"\s+", " ", query.strip())

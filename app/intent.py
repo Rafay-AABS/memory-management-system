@@ -1,5 +1,6 @@
 # app/intent.py
 from typing import List, Dict
+from . import strings
 
 INTENT_KEYWORDS = {
     "Search / Information Retrieval": ["search", "find", "lookup"],

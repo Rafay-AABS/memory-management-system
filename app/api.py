@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List, Dict, Any
 from .composer import process_input
+from . import strings
 
 app = FastAPI(title="Memory Management System API")
 
