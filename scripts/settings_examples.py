@@ -2,6 +2,12 @@
 Example usage of Settings system for model provider management.
 """
 
+import sys
+from pathlib import Path
+
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from app.settings import get_settings, Settings
 from app.models import get_all_providers, PROVIDER_FUNCTIONALITY
 

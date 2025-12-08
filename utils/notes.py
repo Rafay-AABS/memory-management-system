@@ -1,9 +1,9 @@
-# app/notes.py
+# utils/notes.py
 import re
 from collections import Counter
 from typing import List, Dict, Any
 import json
-from . import strings
+from app import strings
 
 def generate_notes(history: List[Dict[str, Any]]) -> str:
     if not history:

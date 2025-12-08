@@ -40,16 +40,6 @@ class Settings:
             "gemini": os.getenv("GEMINI_API_KEY")
         }
         
-        # Memory storage settings
-        self.max_history_length = int(os.getenv("MAX_HISTORY_LENGTH", 100))
-        self.memory_storage_path = os.getenv("MEMORY_STORAGE_PATH", "./data/memory_storage")
-        self.auto_cleanup_enabled = os.getenv("AUTO_CLEANUP_ENABLED", "true").lower() == "true"
-        self.cleanup_interval_hours = int(os.getenv("CLEANUP_INTERVAL_HOURS", 24))
-        
-        # Logging settings
-        self.log_level = os.getenv("LOG_LEVEL", "INFO")
-        self.log_file_path = os.getenv("LOG_FILE_PATH", "./logs/app.log")
-
         # Runtime settings
         self.timeout = self.config.get("timeout_seconds", 30)
         self.max_retries = self.config.get("max_retries", 3)

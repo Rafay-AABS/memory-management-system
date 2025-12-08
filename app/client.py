@@ -13,6 +13,7 @@ class ModelProvider(Enum):
     OPENAI = "openai"
     GROQ = "groq"
     GEMINI = "gemini"
+
 class ModelClient:
     """Manages AI model API clients and handles switching between providers."""
     
@@ -40,7 +41,27 @@ class ModelClient:
         if not self.provider_info:
             raise ValueError(f"Unknown provider: {provider}. Available: {list(MODEL_PROVIDERS.keys())}")
         
-        # Get model from settings if available
+        # Get model from settings if available, or use provided model, or use default
+        if model is None and self.settings:
+            self.model = self.settings.current_model or DEFAULT_MODELS.get(self.provider)
+        elif model is None:
+            self.model = DEFAULT_MODELS.get(self.provider)
+        else:
+            self.model = model
+        
+        # Get API key
+        if api_key:
+            self.api_key = api_key
+        elif self.settings:
+            self.api_key = self.settings.api_keys.get(self.provider)
+        else:
+            env_var = self.provider_info.get("env_var")
+            self.api_key = os.getenv(env_var) if env_var else None
+        
+        # Set provider details
+        self.base_url = self.provider_info.get("base_url")
+        self.capabilities = self.provider_info.get("capabilities", [])
+    
     def switch_provider(self, provider: str, model: Optional[str] = None, api_key: Optional[str] = None):
         """
         Switch to a different API provider.
@@ -52,6 +73,13 @@ class ModelClient:
         """
         # Update settings if available
         if self.settings:
+            self.settings.current_provider = provider
+            if model:
+                self.settings.current_model = model
+        
+        # Reinitialize with new provider
+        self.__init__(provider, model, api_key, use_settings=self.settings is not None)
+    
     def switch_model(self, model: str):
         """
         Switch to a different model within the same provider.
@@ -68,28 +96,6 @@ class ModelClient:
         # Update settings if available
         if self.settings:
             self.settings.current_model = model
-    def switch_provider(self, provider: str, model: Optional[str] = None, api_key: Optional[str] = None):
-        """
-        Switch to a different API provider.
-        
-        Args:
-            provider: New provider to switch to
-            model: Model to use with new provider
-            api_key: API key for new provider
-        """
-        self.__init__(provider, model, api_key)
-    
-    def switch_model(self, model: str):
-        """
-        Switch to a different model within the same provider.
-        
-        Args:
-            model: Model name to switch to
-        """
-        available_models = self.provider_info["models"]
-        if model not in available_models:
-            raise ValueError(f"Model {model} not available for {self.provider}. Available: {available_models}")
-        self.model = model
     
     def get_client_config(self) -> Dict[str, Any]:
         """Get current client configuration."""

@@ -2,6 +2,12 @@
 Example usage of the Model Client system.
 """
 
+import sys
+from pathlib import Path
+
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from app.client import ModelClient
 from app.models import get_all_providers, get_provider_models, PROVIDER_FUNCTIONALITY
 
