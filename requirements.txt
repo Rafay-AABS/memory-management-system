@@ -5,9 +5,11 @@ pydantic>=2.10.0
 regex>=2024.11.0
 pytest>=8.3.0
 
-# Optional: Uncomment the provider SDKs you want to use
-# openai>=1.0.0
-# groq>=0.4.0
-# google-generativeai>=0.3.0
+# LLM Provider SDKs
+openai>=1.0.0
+groq>=0.4.0
+google-generativeai>=0.3.0
 
+# Utilities
 python-dotenv>=1.0.0
+
