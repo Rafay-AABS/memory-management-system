@@ -30,7 +30,7 @@ class Settings:
         self.config = self._load_config()
         
         # Model provider settings
-        self._current_provider = self.config.get("default_provider", "openai")
+        self._current_provider = self.config.get("default_provider", "gemini")
         self._current_model = None
         
         # API keys

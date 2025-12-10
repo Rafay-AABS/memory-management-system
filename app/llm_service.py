@@ -16,7 +16,7 @@ class LLMProvider(Enum):
 class LLMService:
     """Unified interface for interacting with different LLM providers."""
     
-    def __init__(self, provider: str = "openai", model: Optional[str] = None, api_key: Optional[str] = None):
+    def __init__(self, provider: str = "gemini", model: Optional[str] = None, api_key: Optional[str] = None):
         """
         Initialize LLM service.
         

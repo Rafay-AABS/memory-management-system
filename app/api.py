@@ -26,7 +26,7 @@ chatbot_sessions: Dict[str, Chatbot] = {}
 class ChatRequest(BaseModel):
     message: str = Field(..., description="User message")
     session_id: Optional[str] = Field(None, description="Session ID (creates new if not provided)")
-    provider: Optional[str] = Field("openai", description="LLM provider (openai, groq, gemini)")
+    provider: Optional[str] = Field("gemini", description="LLM provider (openai, groq, gemini)")
     model: Optional[str] = Field(None, description="Model name")
     temperature: Optional[float] = Field(0.7, ge=0.0, le=1.0, description="Response temperature")
     max_tokens: Optional[int] = Field(1000, gt=0, description="Maximum tokens")
@@ -41,7 +41,7 @@ class ChatResponse(BaseModel):
 
 
 class SessionRequest(BaseModel):
-    provider: Optional[str] = Field("openai", description="LLM provider")
+    provider: Optional[str] = Field("gemini", description="LLM provider")
     model: Optional[str] = Field(None, description="Model name")
     system_prompt: Optional[str] = Field(None, description="Custom system prompt")
 

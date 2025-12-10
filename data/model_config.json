@@ -1,5 +1,5 @@
 {
-  "default_provider": "openai",
+  "default_provider": "gemini",
   "default_model": null,
   "providers": {
     "openai": {

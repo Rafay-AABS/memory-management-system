@@ -14,7 +14,7 @@ from .prompts import SYSTEM_PROMPT, INTENT_CLASSIFICATION_PROMPT
 class Chatbot:
     """Main chatbot engine with LLM-based memory management."""
     
-    def __init__(self, provider: str = "openai", model: Optional[str] = None, 
+    def __init__(self, provider: str = "gemini", model: Optional[str] = None, 
                  system_prompt: Optional[str] = None, session_id: Optional[str] = None):
         """
         Initialize chatbot.

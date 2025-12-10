@@ -33,7 +33,7 @@ class ModelClient:
         if provider is None and self.settings:
             provider = self.settings.current_provider
         elif provider is None:
-            provider = "openai"
+            provider = "gemini"
         
         self.provider = provider.lower()
         self.provider_info = get_provider_info(self.provider)
