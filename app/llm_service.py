@@ -33,8 +33,8 @@ class LLMService:
         # Default models
         self.default_models = {
             "openai": "gpt-4o",
-            "groq": "llama-3.1-70b-versatile",
-            "gemini": "gemini-1.5-pro"
+            "groq": "llama-3.3-70b-versatile",
+            "gemini": "gemini-2.5-flash"  # Using Flash for better free tier limits
         }
         
         if not self.model:
@@ -83,7 +83,9 @@ class LLMService:
             if not api_key:
                 raise ValueError("Gemini API key not found. Set GEMINI_API_KEY environment variable.")
             genai.configure(api_key=api_key)
-            self._client = genai.GenerativeModel(self.model)
+            # Use correct model format - add 'models/' prefix if not present
+            model_name = self.model if self.model.startswith('models/') else f'models/{self.model}'
+            self._client = genai.GenerativeModel(model_name)
         except ImportError:
             raise ImportError("Google Generative AI package not installed. Run: pip install google-generativeai")
     

@@ -23,10 +23,10 @@ MODEL_PROVIDERS = {
         "name": "Groq",
         "base_url": "https://api.groq.com/openai/v1",
         "models": [
-            "llama-3.1-70b-versatile",
+            "llama-3.3-70b-versatile",
             "llama-3.1-8b-instant",
-            "mixtral-8x7b-32768",
-            "gemma-7b-it"
+            "openai/gpt-oss-120b",
+            "qwen/qwen3-32b"
         ],
         "capabilities": ["chat", "completion"],
         "requires_api_key": True,
@@ -36,9 +36,9 @@ MODEL_PROVIDERS = {
         "name": "Google Gemini",
         "base_url": "https://generativelanguage.googleapis.com/v1beta",
         "models": [
-            "gemini-1.5-pro",
-            "gemini-1.5-flash",
-            "gemini-1.0-pro"
+            "gemini-2.5-pro",
+            "gemini-2.5-flash",
+            "gemini-2.0-flash"
         ],
         "capabilities": ["chat", "completion", "vision", "multimodal"],
         "requires_api_key": True,
@@ -49,8 +49,8 @@ MODEL_PROVIDERS = {
 # Default model for each provider
 DEFAULT_MODELS = {
     "openai": "gpt-4o",
-    "groq": "llama-3.1-70b-versatile",
-    "gemini": "gemini-1.5-pro"
+    "groq": "llama-3.3-70b-versatile",
+    "gemini": "gemini-2.5-flash"
 }
 
 # Functionality descriptions

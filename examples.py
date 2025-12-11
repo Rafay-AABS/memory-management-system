@@ -14,8 +14,8 @@ def example_basic_chat():
     print("Example 1: Basic Chat")
     print("="*60)
     
-    # Initialize chatbot (defaults to OpenAI)
-    bot = Chatbot(provider="openai")
+    # Initialize chatbot (defaults to Gemini)
+    bot = Chatbot(provider="groq")
     
     # Have a conversation
     messages = [
@@ -27,7 +27,15 @@ def example_basic_chat():
     for msg in messages:
         print(f"\n👤 User: {msg}")
         response = bot.chat(msg)
-        print(f"🤖 Bot: {response['response'][:200]}...")
+        if 'error' in response:
+            print(f"❌ Error: {response['error']}")
+        
+        bot_response = response['response']
+        # Display full response if short, truncate if long
+        if len(bot_response) > 300:
+            print(f"🤖 Bot: {bot_response[:300]}...\n")
+        else:
+            print(f"🤖 Bot: {bot_response}\n")
         time.sleep(1)
     
     print(f"\n📊 Session ID: {bot.session_id}")
@@ -38,7 +46,7 @@ def example_memory_features():
     print("Example 2: Memory Features")
     print("="*60)
     
-    bot = Chatbot(provider="openai")
+    bot = Chatbot(provider="groq")
     
     # Have several conversations
     topics = [
@@ -56,14 +64,27 @@ def example_memory_features():
     print("\n📝 Conversation Summary:")
     print("-" * 60)
     summary = bot.get_memory_summary()
-    print(summary)
+    # Show first 500 characters of summary
+    if len(summary) > 500:
+        print(summary[:500] + "...\n[Summary truncated for readability]\n")
+    else:
+        print(summary)
     
     # Extract key facts
     print("\n📌 Key Facts Extracted:")
     print("-" * 60)
     facts = bot.get_key_facts()
-    for i, fact in enumerate(facts, 1):
-        print(f"{i}. {fact}")
+    if facts:
+        # Show only first 8 facts for readability
+        display_facts = facts[:8]
+        for i, fact in enumerate(display_facts, 1):
+            # Clean up fact display
+            clean_fact = fact.strip().lstrip('0123456789. ')
+            print(f"  {i}. {clean_fact}")
+        if len(facts) > 8:
+            print(f"  ... and {len(facts) - 8} more facts")
+    else:
+        print("  No facts extracted")
     
     # Search memory
     print("\n🔍 Search Results for 'authentication':")
@@ -101,7 +122,7 @@ def example_session_management():
     
     # Create different sessions for different purposes
     work_bot = Chatbot(
-        provider="openai",
+        provider="groq",
         system_prompt="You are a senior software engineer helping with work projects."
     )
     
@@ -113,12 +134,14 @@ def example_session_management():
     # Chat in work context
     print("\n💼 Work Session:")
     work_response = work_bot.chat("Review this SQL query for security issues")
-    print(f"Work Bot: {work_response['response'][:150]}...")
+    work_text = work_response['response']
+    print(f"Work Bot: {work_text[:200]}..." if len(work_text) > 200 else f"Work Bot: {work_text}")
     
     # Chat in learning context
     print("\n📚 Learning Session:")
     learn_response = learning_bot.chat("Explain recursion with a simple analogy")
-    print(f"Learning Bot: {learn_response['response'][:150]}...")
+    learn_text = learn_response['response']
+    print(f"Learning Bot: {learn_text[:200]}..." if len(learn_text) > 200 else f"Learning Bot: {learn_text}")
     
     print(f"\n✓ Work Session ID: {work_bot.session_id}")
     print(f"✓ Learning Session ID: {learning_bot.session_id}")
@@ -130,7 +153,7 @@ def example_export_import():
     print("="*60)
     
     # Create a conversation
-    bot1 = Chatbot(provider="openai")
+    bot1 = Chatbot(provider="groq")
     bot1.chat("My favorite color is blue")
     bot1.chat("I work as a software engineer")
     bot1.chat("I'm learning machine learning")
@@ -142,7 +165,7 @@ def example_export_import():
     print(f"✓ Exported conversation (session: {export_data['session_id']})")
     
     # Import to new bot
-    bot2 = Chatbot()
+    bot2 = Chatbot(provider="groq")
     bot2.import_conversation(export_data)
     print("✓ Imported conversation to new bot")
     
@@ -152,7 +175,15 @@ def example_export_import():
     
     # Continue conversation in new bot
     response = bot2.chat("What do you know about me?")
-    print(f"\n🤖 Bot remembers: {response['response'][:200]}...")
+    if 'error' in response:
+        print(f"\n❌ Error: {response['error']}")
+    
+    response_text = response['response']
+    print(f"\n🤖 Bot remembers:")
+    if len(response_text) > 250:
+        print(f"{response_text[:250]}...")
+    else:
+        print(response_text)
 
 def example_statistics():
     """Example 6: Get statistics"""
@@ -160,7 +191,7 @@ def example_statistics():
     print("Example 6: Statistics & Monitoring")
     print("="*60)
     
-    bot = Chatbot(provider="openai")
+    bot = Chatbot(provider="groq")
     
     # Have some conversations
     for i in range(5):
@@ -182,11 +213,17 @@ def example_statistics():
 
 def main():
     """Run all examples"""
+    import sys
+    import io
+    # Fix encoding for Windows
+    if sys.platform == 'win32':
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    
     print("\n" + "="*60)
     print("🤖 Chatbot Memory Management System - Examples")
     print("="*60)
     print("\nNote: Make sure you have set your API keys in .env file")
-    print("This demo will use OpenAI by default. Update if needed.")
+    print("This demo will use Groq by default (fast and free).")
     
     try:
         # Run examples
